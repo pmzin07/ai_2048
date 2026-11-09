@@ -53,7 +53,7 @@ class Agent:
         limit = max(64, int(self.BASE_NODES*scale*danger_factor*factor
                             /(1+obs.move_count/2200)**2))
         search = Search(limit, cache=self.search_cache)
-        max_depth = 5 if crowded >= 0.80 else 4
+        max_depth = 8
         for depth in range(0, max_depth):
             try:
                 candidate = search.root(options, depth)
