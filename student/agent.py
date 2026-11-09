@@ -1,14 +1,12 @@
-"""No-tablebase agent: deterministic bounded Expectimax on packed boards."""
 from game2048.types import Move
 from student.fastboard import encode, moves, evaluate, board_risk, clear_caches
 from student.fastsearch import Search, SearchStopped
 
 def _time_factor(obs):
-    """Coarse tiers so normal games stay reproducible; only long games brake."""
     remaining, total = obs.time_remaining_ms, obs.total_time_limit_ms
     if remaining is None or not total:
         return 1.0
-    if remaining < min(1500.0, 0.03*total):   # emergency: greedy, no search
+    if remaining < min(1500.0, 0.03*total):
         return 0.0
     frac = remaining/total
     if frac > 0.30:
@@ -21,7 +19,7 @@ def _time_factor(obs):
 
 class Agent:
     name = 'Thu Do Hung Yen'
-    BASE_NODES = 9000          # chỉnh tại đây sau khi đo
+    BASE_NODES = 9000
     CACHE_MAX = 200_000
 
     def reset(self, seed=None):

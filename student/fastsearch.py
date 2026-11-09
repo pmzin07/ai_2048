@@ -1,4 +1,3 @@
-"""Deterministic probability-limited Expectimax (no wall-clock cutoff)."""
 from student.fastboard import evaluate, moves, empty_shifts
 
 class SearchStopped(Exception):
@@ -12,8 +11,6 @@ class Search:
         self.cache = {} if cache is None else cache
 
     def _key(self, board, depth, probability):
-        # Exact probabilities almost never repeat. This bucket preserves the
-        # important cutoff distinction while allowing transposition reuse.
         return board, depth, min(100, int(probability * 100))
 
     def player(self, board, depth, probability):
@@ -43,7 +40,6 @@ class Search:
         if self.nodes > self.limit:
             raise SearchStopped
         if depth == 0 or probability < self.cutoff:
-            # Afterstate leaf: intentional approximation, before random spawn.
             return evaluate(board)
         shifts = empty_shifts(board)
         if not shifts:

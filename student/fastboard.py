@@ -1,8 +1,3 @@
-"""80-bit board, five bits per exponent; lazily cached row arithmetic.
-
-No solved positions or offline data. Supports tiles through 2**31;
-overflow is detected rather than corrupting a neighbouring cell.
-"""
 from functools import lru_cache
 
 MASK = (1 << 20) - 1
@@ -92,8 +87,6 @@ def row_value(row):
             increasing += difference
         else:
             decreasing -= difference
-    # Strongly penalize inversions among large tiles, while allowing either
-    # monotone direction. A constant makes terminal loss worse than normal play.
     return (100000.0 + 270*line.count(0) + 700*merges
             - 47*min(increasing, decreasing) - 11*sum(POWER[v] for v in line))
 
