@@ -47,7 +47,7 @@ def _available_agent_specs() -> dict[str, str | None]:
     specs: dict[str, str | None] = {
         "Human": None,
         "Boss 0 · Random": "student.examples.random_agent:Agent",
-        "Student agent": "student.agent:Agent",
+        "Student agent - Thu do Hung Yen": "student.agent:Agent",
     }
     private_bosses = (
         ("Boss 1 · Local", "instructor.bosses.boss1_greedy:Agent"),
